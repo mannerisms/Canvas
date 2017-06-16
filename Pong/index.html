@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pong</title>
+    <script type="text/javascript" src='ball.js'></script>
+    <script type="text/javascript" src='paddle.js'></script>
+    <script type="text/javascript" src='player.js'></script>
+</head>
+<body>
+
+<div id="container">
+    <canvas id="Pong">Your Browser does not support Canvas, please upgrade</canvas>
+</div>
+
+<script>
+
+var canvas;
+var ctx;
+var ball;
+var players = [];
+
+(function(){
+
+canvas = document.getElementById('Pong');
+ctx = canvas.getContext('2d');
+
+canvas.width = 800;
+canvas.height = 600;
+
+ball = new Ball(10, canvas.width / 2, canvas.height / 2, 20, 5);
+var playerNames = ['Player 1', 'Player 2'];
+
+for (var i = 0; i < playerNames.length; i++) {
+    players.push(new Player(i+1, playerNames[i]));
+}
+
+var framePerSecond = 30;
+setInterval(function () {
+    moveEverything();
+    drawEverything();
+}, 1000/framePerSecond );
+}());
+
+function moveEverything() {
+    ball.moveBall();
+}
+
+function drawEverything() {
+    // create canvas
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (var i = 0; i < players.length; i++) {
+        players[i].paddle.draw();
+    }
+
+    ball.drawBall();
+}
+
+</script>
+</body>
+</html>
