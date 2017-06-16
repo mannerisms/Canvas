@@ -34,6 +34,45 @@ for (var i = 0; i < playerNames.length; i++) {
     players.push(new Player(i+1, playerNames[i]));
 }
 
+//  MouseMove
+var mousePos;
+document.onmousemove = handleMouseMove;
+
+function handleMouseMove(event) {
+    var dot, eventDoc, doc, body, pageX, pageY;
+
+    event = event || window.event; // IE-ism
+
+    if (event.pageX == null && event.clientX != null) {
+        eventDoc = (event.target && event.target.ownerDocument) || document;
+        doc = eventDoc.documentElement;
+        body = eventDoc.body;
+
+        event.pageX = event.clientX +
+          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+          (doc && doc.clientLeft || body && body.clientLeft || 0);
+        event.pageY = event.clientY +
+          (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+          (doc && doc.clientTop  || body && body.clientTop  || 0 );
+    }
+
+    mousePos = {
+        x: event.pageX,
+        y: event.pageY
+    };
+
+    console.log(mousePos)
+}
+function getMousePosition() {
+    var pos = mousePos;
+    if (!pos) {
+        // We haven't seen any movement yet
+    }
+    else {
+        // Use pos.x and pos.y
+    }
+}
+
 var framePerSecond = 30;
 setInterval(function () {
     moveEverything();
@@ -46,14 +85,16 @@ function moveEverything() {
 }
 
 function drawEverything() {
-    // create canvas
+    // Draw the canvas
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Draw the paddles
     for (var i = 0; i < players.length; i++) {
         players[i].paddle.draw();
     }
 
+    //  Draw the ball
     ball.drawBall();
 }
 
