@@ -27,7 +27,7 @@ ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
 
-ball = new Ball(10, canvas.width / 2, canvas.height / 2, 20, 5);
+ball = new Ball(10, canvas.width / 2, canvas.height / 2, -10);
 var playerNames = ['Player 1', 'Player 2'];
 
 for (var i = 0; i < playerNames.length; i++) {
@@ -62,16 +62,6 @@ function handleMouseMove(event) {
     };
 }
 
-function getMousePosition() {
-    var pos = mousePos;
-    if (!pos) {
-        // We haven't seen any movement yet
-    }
-    else {
-        // Use pos.x and pos.y
-    }
-}
-
 var framePerSecond = 30;
 setInterval(function () {
     if (mousePos == undefined){
@@ -92,17 +82,19 @@ function drawEverything() {
     // Draw the canvas
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     // Draw dotted centre line
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = 'grey';
     ctx.setLineDash([10, 10]);/*dashes are 5px and spaces are 3px*/
     ctx.beginPath();
     ctx.moveTo(canvas.width / 2, 0);
     ctx.lineTo(canvas.width / 2, canvas.height);
     ctx.stroke();
 
-    // Draw the paddles
+    // Draw the players
     for (var i = 0; i < players.length; i++) {
         players[i].paddle.draw();
+        players[i].drawScore();
     }
 
     //  Draw the ball

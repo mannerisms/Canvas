@@ -15,7 +15,21 @@ function Paddle(playerNum) {
         if (this.pos > canvas.height - this.height){ this.y = canvas.height - this.height}
         else if (this.pos < 0){ this.y = 0}
         else{this.y = this.pos};
-        console.log(this.y)
+    }
+
+    this.isColliding = function () {
+        var distX = Math.abs(ball.x - this.x - this.width / 2);
+        var distY = Math.abs(ball.y - this.y - this.height / 2);
+
+        if (distX > ((this.width / 2 ) + ball.radius)) { return false; }
+        if (distY > ((this.height / 2) + ball.radius)) { return false; }
+
+        if (distX <= (this.width / 2)) { return true; }
+        if (distY <= (this.height / 2)) { return true; }
+
+        var dx=distX-this.width / 2;
+        var dy=distY-this.height / 2;
+        return (dx*dx+dy*dy<=(ball.radius * ball.radius));
     }
 
     this.draw = function(){
