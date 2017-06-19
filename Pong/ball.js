@@ -19,17 +19,13 @@ function Ball(radius, x, y, xVel) {
         //  check if ball goes off screen to the right
         if (this.x + (this.radius / 2 ) >= canvas.width){
             players[0].score += 1;
-            this.x = (canvas.width / 2 );
-            this.y = (canvas.height / 2 );
-            this.yVel = this.setYdirection();
+            this.ballReset();
         }
 
         // Check if ball goes of screen to the left
         if (this.x - (this.radius / 2 ) <= 0 ){
             players[1].score += 1;
-            this.x = (canvas.width / 2 );
-            this.y = (canvas.height / 2 );
-            this.yVel = this.setYdirection();
+            this.ballReset();
         }
 
         //  Bounce of the top and bottom of the screen
@@ -47,6 +43,12 @@ function Ball(radius, x, y, xVel) {
                 this.xVel *= -1;
             }
         }
+    }
+
+    this.ballReset = function () {
+        this.x = (canvas.width / 2 );
+        this.y = (canvas.height / 2 );
+        this.yVel = this.setYdirection();
     }
 
     this.drawBall = function(){

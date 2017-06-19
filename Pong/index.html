@@ -74,7 +74,17 @@ setInterval(function () {
 }());
 
 function moveEverything(mPos) {
-    players[0].paddle.move(mPos);
+    for (var i = 0; i < players.length; i++) {
+        if (i == 0){
+            players[i].paddle.move(mPos);
+        }else{
+            if (players[i].paddle.y < ball.y){
+                players[i].paddle.y += 6;
+            }else if (players[i].paddle.y > ball.y){
+                players[i].paddle.y -= 6;
+            }
+        }
+    }
     ball.moveBall();
 }
 
