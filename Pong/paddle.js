@@ -9,8 +9,13 @@ function Paddle(playerNum) {
     }
     this.y = (canvas.height / 2) - (this.height / 2);
 
-    this.move = function(){
-        //
+    this.move = function(pos){
+        this.pos = pos - this.height / 2;
+        // set max height
+        if (this.pos > canvas.height - this.height){ this.y = canvas.height - this.height}
+        else if (this.pos < 0){ this.y = 0}
+        else{this.y = this.pos};
+        console.log(this.y)
     }
 
     this.draw = function(){

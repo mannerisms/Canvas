@@ -60,9 +60,8 @@ function handleMouseMove(event) {
         x: event.pageX,
         y: event.pageY
     };
-
-    console.log(mousePos)
 }
+
 function getMousePosition() {
     var pos = mousePos;
     if (!pos) {
@@ -75,12 +74,17 @@ function getMousePosition() {
 
 var framePerSecond = 30;
 setInterval(function () {
-    moveEverything();
+    if (mousePos == undefined){
+        moveEverything(canvas.height / 2);
+    }else{
+        moveEverything(mousePos.y);
+    }
     drawEverything();
 }, 1000/framePerSecond );
 }());
 
-function moveEverything() {
+function moveEverything(mPos) {
+    players[0].paddle.move(mPos);
     ball.moveBall();
 }
 
@@ -88,6 +92,13 @@ function drawEverything() {
     // Draw the canvas
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Draw dotted centre line
+    ctx.strokeStyle = 'white';
+    ctx.setLineDash([10, 10]);/*dashes are 5px and spaces are 3px*/
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
 
     // Draw the paddles
     for (var i = 0; i < players.length; i++) {
