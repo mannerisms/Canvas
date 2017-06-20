@@ -1,8 +1,8 @@
-function Ball(radius, x, y, xVel) {
+function Ball(radius, x, y) {
     this.radius = radius;
     this.x = x;
     this.y = y;
-    this.xVel = xVel;
+    this.xVel = 12;
     this.setYdirection = function () {
         randomY = Math.floor(Math.random() * (10 - 3)) + 3;
         if (Math.random() >= 0.5){
@@ -42,7 +42,7 @@ function Ball(radius, x, y, xVel) {
 
         // Check if ball bounces of paddle
         if (this.xVel > 0){
-            if (players[1].paddle.isColliding()){
+            if (players[1].paddle.isColliding()) {
                 this.reverseBall(players[1]);
             }
         }else{
@@ -58,9 +58,9 @@ function Ball(radius, x, y, xVel) {
         this.xVel *= -1;
         // add a little speed bump to xvelocity
         if (this.xVel > 0){
-            this.xVel += 0.05
+            this.xVel += 0.5
         } else{
-            this.xVel -= 0.05
+            this.xVel -= 0.5
         }
     }
 
@@ -68,6 +68,7 @@ function Ball(radius, x, y, xVel) {
         this.x = (canvas.width / 2 );
         this.y = (canvas.height / 2 );
         this.yVel = this.setYdirection();
+        this.xVel = 12;
     }
 
     this.drawBall = function(){
