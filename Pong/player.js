@@ -15,7 +15,5 @@ function Player(playerNum, name) {
             score_x = ((canvas.width / 4) * 3)
         }
         ctx.fillText(this.score, score_x, 50);
-}
-
-
+    }
 }

@@ -8,31 +8,31 @@
 </head>
 <body>
 
-<div id="container">
-    <canvas id="Pong">Your Browser does not support Canvas, please upgrade</canvas>
-</div>
+    <div id="container">
+        <canvas id="Pong">Your Browser does not support Canvas, please upgrade</canvas>
+    </div>
 
-<script>
+    <script>
 
-var canvas;
-var ctx;
-var ball;
-var players = [];
+        var canvas;
+        var ctx;
+        var ball;
+        var players = [];
 
-(function(){
+        (function(){
 
-canvas = document.getElementById('Pong');
-ctx = canvas.getContext('2d');
+            canvas = document.getElementById('Pong');
+            ctx = canvas.getContext('2d');
 
-canvas.width = 800;
-canvas.height = 600;
+            canvas.width = 800;
+            canvas.height = 600;
 
-ball = new Ball(10, canvas.width / 2, canvas.height / 2);
-var playerNames = ['Player 1', 'Player 2'];
+            ball = new Ball(10, canvas.width / 2, canvas.height / 2);
+            var playerNames = ['Player 1', 'Player 2'];
 
-for (var i = 0; i < playerNames.length; i++) {
-    players.push(new Player(i+1, playerNames[i]));
-}
+            for (var i = 0; i < playerNames.length; i++) {
+                players.push(new Player(i+1, playerNames[i]));
+            }
 
 //  MouseMove
 var mousePos;
@@ -49,11 +49,11 @@ function handleMouseMove(event) {
         body = eventDoc.body;
 
         event.pageX = event.clientX +
-          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-          (doc && doc.clientLeft || body && body.clientLeft || 0);
+        (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+        (doc && doc.clientLeft || body && body.clientLeft || 0);
         event.pageY = event.clientY +
-          (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-          (doc && doc.clientTop  || body && body.clientTop  || 0 );
+        (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+        (doc && doc.clientTop  || body && body.clientTop  || 0 );
     }
 
     mousePos = {
