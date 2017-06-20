@@ -28,20 +28,39 @@ function Ball(radius, x, y, xVel) {
             this.ballReset();
         }
 
-        //  Bounce of the top and bottom of the screen
-        if (this.y + (this.radius / 2 ) >= canvas.height || this.y - (this.radius / 2 ) <= 0){
+        //  Bounce of the top of the screen
+        if (this.y - (this.radius / 2 ) <= 0){
+            this.y = this.radius / 2;
+            this.yVel *= -1;
+        }
+
+        //  Bounce of the bottom of the screen
+        if (this.y + (this.radius / 2 ) >= canvas.height){
+            this.y = canvas.height - this.radius / 2;
             this.yVel *= -1;
         }
 
         // Check if ball bounces of paddle
         if (this.xVel > 0){
             if (players[1].paddle.isColliding()){
-                this.xVel *= -1;
+                this.reverseBall(players[1]);
             }
         }else{
             if (players[0].paddle.isColliding()){
-                this.xVel *= -1;
+                this.reverseBall(players[0]);
             }
+        }
+    }
+
+    this.reverseBall = function (player) {
+        var hit_height = player.paddle.distanceFromCenter();
+        this.yVel = hit_height * 0.35;
+        this.xVel *= -1;
+        // add a little speed bump to xvelocity
+        if (this.xVel > 0){
+            this.xVel += 0.05
+        } else{
+            this.xVel -= 0.05
         }
     }
 

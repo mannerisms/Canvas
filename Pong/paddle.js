@@ -3,14 +3,14 @@ function Paddle(playerNum) {
     this.height = 100;
     this.width = 20;
     if (this.playerNum == 1){
-        this.x = 0;
+        this.x = 0 + 5;
     }else{
-        this.x = canvas.width - this.width;
+        this.x = canvas.width - this.width - 5 ;
     }
     this.y = (canvas.height / 2) - (this.height / 2);
 
     this.move = function(pos){
-        this.pos = pos - this.height / 2;
+        this.pos = pos;
         // set max height
         if (this.pos > canvas.height - this.height){ this.y = canvas.height - this.height}
         else if (this.pos < 0){ this.y = 0}
@@ -19,7 +19,7 @@ function Paddle(playerNum) {
 
     this.isColliding = function () {
         var distX = Math.abs(ball.x - this.x - this.width / 2);
-        var distY = Math.abs(ball.y - this.y - this.height / 2);
+        distY = Math.abs(ball.y - this.y - this.height / 2);
 
         if (distX > ((this.width / 2 ) + ball.radius)) { return false; }
         if (distY > ((this.height / 2) + ball.radius)) { return false; }
@@ -30,6 +30,10 @@ function Paddle(playerNum) {
         var dx=distX-this.width / 2;
         var dy=distY-this.height / 2;
         return (dx*dx+dy*dy<=(ball.radius * ball.radius));
+    }
+
+    this.distanceFromCenter = function () {
+        return ball.y - this.y - this.height / 2;
     }
 
     this.draw = function(){

@@ -74,16 +74,11 @@ setInterval(function () {
 }());
 
 function moveEverything(mPos) {
-    for (var i = 0; i < players.length; i++) {
-        if (i == 0){
-            players[i].paddle.move(mPos);
-        }else{
-            if (players[i].paddle.y < ball.y){
-                players[i].paddle.y += 6;
-            }else if (players[i].paddle.y > ball.y){
-                players[i].paddle.y -= 6;
-            }
-        }
+    players[0].paddle.move(mPos - players[0].paddle.height / 2);
+    if (players[1].paddle.y > ball.y){
+        players[1].paddle.move(players[1].paddle.y + players[1].paddle.distanceFromCenter().map(players[1].paddle.height / 2, canvas.height - (players[1].paddle.height / 2), 5 + ball.yVel / 3, 50));
+    }else{
+        players[1].paddle.move(players[1].paddle.y + players[1].paddle.distanceFromCenter().map(players[1].paddle.height / 2, canvas.height - (players[1].paddle.height / 2), 5 + ball.yVel / 3, 50 ));
     }
     ball.moveBall();
 }
@@ -109,6 +104,10 @@ function drawEverything() {
 
     //  Draw the ball
     ball.drawBall();
+}
+
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 </script>
